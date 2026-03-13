@@ -11,6 +11,10 @@ namespace Thedreamproperties.Controllers
             return View();
         }
 
+        public void sendmessege()
+        {
+            //code to sent data into database
+        }
         public IActionResult Privacy()
         {
             return View();
