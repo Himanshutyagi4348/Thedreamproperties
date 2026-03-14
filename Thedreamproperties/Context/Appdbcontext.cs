@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using Thedreamproperties.Models;
 using System;
 
@@ -19,8 +19,10 @@ namespace Thedreamproperties.Context
         {
             var parameters = new[]
             {
-                new SqlParameter("@name", name),
-                new SqlParameter("@email", email),
+                new SqlParameter("@name",
+                                 name),
+                new SqlParameter("@email",
+                                 email),
                 new SqlParameter("@subject", subject),
                 new SqlParameter("@messege", messege)
               

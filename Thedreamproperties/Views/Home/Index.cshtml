@@ -3,23 +3,23 @@
 }
 
 <!-- start Contact Form -->
-<form asp-action="sendmessege" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="300">
+<form asp-action="sendmessege" method="post" id="contactform" class="php-email-form" data-aos="fade-up" data-aos-delay="300">
     <div class="row gy-4">
 
         <div class="col-md-6">
-            <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+            <input type="text" name="name" class="form-control" placeholder="Your Name" required="" id="name">
         </div>
 
         <div class="col-md-6 ">
-            <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+            <input type="email" class="form-control" name="email" placeholder="Your Email" required="" id="email">
         </div>
 
         <div class="col-md-12">
-            <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+            <input type="text" class="form-control" name="subject" placeholder="Subject" required="" id="subject">
         </div>
 
         <div class="col-md-12">
-            <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+            <textarea class="form-control" name="messege" rows="6" placeholder="Message" required="" id="messege"></textarea>
         </div>
 
         <div class="col-md-12 text-center">
@@ -27,9 +27,57 @@
             <div class="error-message"></div>
             <div class="sent-message">Your message has been sent. Thank you!</div>
 
-            <button type="submit">Send Message</button>
+            <button type="submit" id="sendbtn">Send Message</button>
         </div>
 
     </div>
 </form>
 <!-- End Contact Form -->
+
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+        $("#sendbtn").click(function (e) {
+             e.preventDefault();
+
+        var name = $("#name").val();
+        var email = $("#email").val();
+        var subject = $("#subject").val();
+        var messege = $("#messege").val();
+
+        $.ajax({
+        url: '/Home/sendmessege',
+        type: 'POST',
+        data: {
+        name: name,
+        email: email,
+        subject: subject,
+        messege: messege
+        },
+
+        success: function (response) {
+
+        if (response.success) {
+        alert(response.responsetext);
+        $("#contactform")[0].reset();
+        }
+        else {
+        alert("Message not saved");
+        }
+
+        },
+
+        error: function () {
+        alert("Error while sending data");
+        }
+
+        });
+
+        });
+
+        });
+
+    </script>
+}

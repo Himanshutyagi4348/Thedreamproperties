@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Options;
 using Thedreamproperties.Context;
 using Microsoft.EntityFrameworkCore;
+using Thedreamproperties.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<Appdbcontext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<Icontactmessegerepository,contactmessegerepository>();
+builder.Services.AddScoped<Appdbcontext, Appdbcontext>();
 
 var app = builder.Build();
 
